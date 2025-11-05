@@ -7,7 +7,50 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <nav class="top-nav">
+        <div class="nav-container">
+            <ul class="nav-items">
+                <li><a href="#work" class="nav-active">Work</a></li>
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="#about">About me</a></li>
+            </ul>
+        </div>
+    </nav>
+    
     <div class="container">
+        <!-- Weather Widget -->
+        <div id="weather-card" class="weather-widget">
+            <form id="wx-form" class="weather-form">
+                <input id="wx-city" type="text" placeholder="Search city..." aria-label="City" class="city-input">
+                <button type="submit" class="search-btn">🔍</button>
+                <button type="button" id="wx-geo" class="geo-btn" title="Use my location">📍</button>
+            </form>
+
+            <div class="weather-header">
+                <strong id="wx-location">Seattle</strong>
+                <label class="units-label">
+                    <select id="wx-units" class="units-select">
+                        <option value="fahrenheit">°F</option>
+                        <option value="celsius">°C</option>
+                    </select>
+                </label>
+            </div>
+
+            <div id="wx-status" role="status" aria-live="polite" class="weather-status">Loading...</div>
+
+            <div id="wx" class="weather-content" style="display:none;">
+                <div class="weather-main">
+                    <span id="wx-emoji" class="weather-emoji">⛅</span> 
+                    <span id="wx-temp" class="weather-temp"></span>
+                </div>
+                <div id="wx-desc" class="weather-desc"></div>
+                <div id="wx-extra" class="weather-extra"></div>
+                <div class="weather-attribution">
+                    Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open‑Meteo</a>
+                </div>
+            </div>
+        </div>
+
         <div class="content">
             <h1 class="intro">Hello. I'm Carolina</h1>
             <p class="subtitle">I'm a Principal Product Designer driving innovation, and guiding teams to deliver great experiences</p>
@@ -25,7 +68,7 @@
     <div class="projects-container">
         <div class="projects-grid">
             <div class="project-card">
-                <img src="project1.jpg" alt="Project 1" class="project-image">
+                <img src="Cover+Inside.jpg" alt="Project 1" class="project-image">
             </div>
             <div class="project-card">
                 <img src="project2.jpg" alt="Project 2" class="project-image">
@@ -44,5 +87,166 @@
             </div>
         </div>
     </div>
+
+<script type="module">
+const weatherCodeMap = {
+  0:['Clear sky','☀️'],1:['Mainly clear','🌤️'],2:['Partly cloudy','⛅'],3:['Overcast','☁️'],
+  45:['Fog','🌫️'],48:['Rime fog','🌫️'],
+  51:['Light drizzle','🌦️'],53:['Moderate drizzle','🌦️'],55:['Dense drizzle','🌧️'],
+  61:['Slight rain','🌦️'],63:['Moderate rain','🌧️'],65:['Heavy rain','🌧️'],
+  71:['Slight snow','🌨️'],73:['Moderate snow','🌨️'],75:['Heavy snow','❄️'],
+  80:['Rain showers','🌦️'],81:['Rain showers','🌧️'],82:['Violent showers','⛈️'],
+  95:['Thunderstorm','⛈️'],96:['T-storm w/ hail','⛈️'],99:['T-storm w/ hail','⛈️']
+};
+
+const els = {
+  form: document.getElementById('wx-form'),
+  input: document.getElementById('wx-city'),
+  geoBtn: document.getElementById('wx-geo'),
+  units: document.getElementById('wx-units'),
+  status: document.getElementById('wx-status'),
+  card: document.getElementById('wx'),
+  temp: document.getElementById('wx-temp'),
+  desc: document.getElementById('wx-desc'),
+  extra: document.getElementById('wx-extra'),
+  emoji: document.getElementById('wx-emoji'),
+  loc: document.getElementById('wx-location'),
+};
+
+const CACHE_KEY = 'wx_cache_v1';
+function readCache() {
+  try { return JSON.parse(localStorage.getItem(CACHE_KEY) || 'null'); } catch { return null; }
+}
+function writeCache(obj) {
+  try { localStorage.setItem(CACHE_KEY, JSON.stringify(obj)); } catch {}
+}
+
+async function geocodeCity(city) {
+  const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=en&format=json`;
+  const r = await fetch(url, { headers: { 'Accept': 'application/json' } });
+  if (!r.ok) throw new Error('Geocoding failed');
+  const g = await r.json();
+  if (!g.results?.length) throw new Error('City not found');
+  const { latitude, longitude, name, country } = g.results[0];
+  return { lat: latitude, lon: longitude, label: country ? `${name}, ${country}` : name };
+}
+
+async function fetchWeather(lat, lon, units='fahrenheit') {
+  const params = new URLSearchParams({
+    latitude: lat, longitude: lon,
+    current: 'temperature_2m,apparent_temperature,weather_code,wind_speed_10m,relative_humidity_2m',
+    temperature_unit: units,
+    windspeed_unit: units === 'fahrenheit' ? 'mph' : 'kmh',
+    timezone: 'auto'
+  });
+  const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
+  const ctrl = new AbortController();
+  const t = setTimeout(()=>ctrl.abort(), 10000);
+  const r = await fetch(url, { signal: ctrl.signal, headers: { 'Accept': 'application/json' } });
+  clearTimeout(t);
+  if (!r.ok) throw new Error('Weather fetch failed');
+  return r.json();
+}
+
+function renderWeather(json, units, label) {
+  const c = json.current;
+  const [desc, emoji] = weatherCodeMap[c.weather_code] || ['Weather','🌡️'];
+  els.emoji.textContent = emoji;
+  els.temp.textContent = `${Math.round(c.temperature_2m)}°${units === 'fahrenheit' ? 'F' : 'C'}`;
+  els.desc.textContent = desc;
+  const wind = units === 'fahrenheit' ? `${Math.round(c.wind_speed_10m)} mph` : `${Math.round(c.wind_speed_10m)} km/h`;
+  els.extra.textContent = `Feels like ${Math.round(c.apparent_temperature)}°${units === 'fahrenheit' ? 'F' : 'C'} • Wind ${wind} • Humidity ${c.relative_humidity_2m}%`;
+  els.loc.textContent = label;
+  els.status.style.display = 'none';
+  els.card.style.display = 'block';
+}
+
+async function loadByCoords(lat, lon, label, units) {
+  els.status.style.display = 'block';
+  els.card.style.display = 'none';
+  els.status.textContent = 'Loading weather...';
+
+  const now = Date.now();
+  const cache = readCache();
+  if (cache && Math.abs(now - cache.fetchedAt) < 10*60*1000 &&
+      cache.lat === lat && cache.lon === lon && cache.units === units) {
+    renderWeather(cache.data, units, label || cache.label);
+    return;
+  }
+
+  try {
+    const data = await fetchWeather(lat, lon, units);
+    renderWeather(data, units, label);
+    writeCache({ lat, lon, label, units, data, fetchedAt: now });
+  } catch (err) {
+    els.status.textContent = err.message || 'Error loading weather';
+    console.error(err);
+  }
+}
+
+async function loadByCity(city, units) {
+  try {
+    const { lat, lon, label } = await geocodeCity(city);
+    await loadByCoords(lat, lon, label, units);
+  } catch (err) {
+    els.status.textContent = err.message || 'Error loading city weather';
+    console.error(err);
+  }
+}
+
+els.form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const city = els.input.value.trim();
+  if (!city) return;
+  try {
+    await loadByCity(city, els.units.value);
+    els.input.value = ''; // Clear input after successful search
+  } catch (err) {
+    els.status.textContent = err.message || 'Error loading city weather';
+  }
+});
+
+els.geoBtn.addEventListener('click', () => {
+  if (!navigator.geolocation) {
+    els.status.textContent = 'Geolocation not supported';
+    return;
+  }
+  
+  els.status.style.display = 'block';
+  els.card.style.display = 'none';
+  els.status.textContent = 'Getting your location...';
+  
+  navigator.geolocation.getCurrentPosition(async pos => {
+    const { latitude, longitude } = pos.coords;
+    try {
+      await loadByCoords(latitude, longitude, 'Your location', els.units.value);
+    } catch (err) {
+      els.status.textContent = 'Error loading weather for your location.';
+      console.error(err);
+    }
+  }, err => {
+    els.status.textContent = 'Location permission denied or unavailable.';
+    // Fallback to default city
+    loadByCity('Miami', els.units.value);
+  }, { enableHighAccuracy: true, timeout: 10000 });
+});
+
+els.units.addEventListener('change', () => {
+  // Re-render from cache or refetch with the chosen units
+  const cache = readCache();
+  if (cache?.data) {
+    // If switching units, easiest is to refetch to get server-side unit conversion
+    loadByCoords(cache.lat, cache.lon, cache.label, els.units.value);
+  }
+});
+
+// Initial load: default to Miami
+els.status.textContent = 'Loading Miami weather...';
+els.units.value = 'fahrenheit';
+loadByCity('Miami', els.units.value).catch(err => {
+  els.status.textContent = 'Error loading default weather.';
+  console.error(err);
+});
+</script>
 </body>
 </html>
