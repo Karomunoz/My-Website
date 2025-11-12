@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carolina's Homepage</title>
+    <title>Profile - Carolina's Website</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <nav class="top-nav">
         <div class="nav-container">
             <ul class="nav-items">
-                <li><a href="index.html" class="nav-active">Work</a></li>
-                <li><a href="profile.html">Profile</a></li>
+                <li><a href="index.html">Work</a></li>
+                <li><a href="profile.html" class="nav-active">Profile</a></li>
                 <li><a href="about.html">About me</a></li>
             </ul>
         </div>
@@ -27,7 +27,7 @@
             </form>
 
             <div class="weather-header">
-                <strong id="wx-location">Seattle</strong>
+                <strong id="wx-location">Miami</strong>
                 <label class="units-label">
                     <select id="wx-units" class="units-select">
                         <option value="fahrenheit">°F</option>
@@ -52,38 +52,50 @@
         </div>
 
         <div class="content">
-            <h1 class="intro">Hello. I'm Carolina</h1>
-            <p class="subtitle">I'm a Principal Product Designer driving innovation, and guiding teams to deliver great experiences</p>
+            <h1 class="intro">My Profile</h1>
+            <p class="subtitle">Learn more about my background, skills, and experience</p>
             
             <div class="profile-photo">
-                <!-- You can replace this src with your actual photo -->
                 <img src="your-photo.jpg" alt="Carolina Munoz" class="profile-img">
             </div>
-            
-            <button class="contact-btn">About me</button>
         </div>
     </div>
     
-    <!-- Projects Grid Section -->
-    <div class="projects-container">
-        <div class="projects-grid">
-            <div class="project-card">
-                <img src="Cover+Inside.jpg" alt="Project 1" class="project-image">
+    <!-- Full-width profile content section -->
+    <div class="profile-details">
+        <div class="profile-section">
+            <h3>Experience</h3>
+            <p>Principal Product Designer with 8+ years of experience leading design teams and delivering innovative digital experiences for enterprise and consumer products.</p>
+            <p>I specialize in transforming complex business requirements into intuitive user experiences, while fostering collaboration between design, engineering, and product teams to deliver exceptional results.</p>
+        </div>
+        
+        <div class="skills-tools-grid">
+            <div class="profile-section">
+                <h3>Skills</h3>
+                <div class="skills-grid">
+                    <span class="skill-tag">User Experience Design</span>
+                    <span class="skill-tag">Design Systems</span>
+                    <span class="skill-tag">Product Strategy</span>
+                    <span class="skill-tag">Team Leadership</span>
+                    <span class="skill-tag">Prototyping</span>
+                    <span class="skill-tag">User Research</span>
+                    <span class="skill-tag">Information Architecture</span>
+                    <span class="skill-tag">Interaction Design</span>
+                </div>
             </div>
-            <div class="project-card">
-                <img src="project2.jpg" alt="Project 2" class="project-image">
-            </div>
-            <div class="project-card">
-                <img src="project3.jpg" alt="Project 3" class="project-image">
-            </div>
-            <div class="project-card">
-                <img src="project4.jpg" alt="Project 4" class="project-image">
-            </div>
-            <div class="project-card">
-                <img src="project5.jpg" alt="Project 5" class="project-image">
-            </div>
-            <div class="project-card">
-                <img src="project6.jpg" alt="Project 6" class="project-image">
+            
+            <div class="profile-section">
+                <h3>Tools</h3>
+                <div class="tools-grid">
+                    <span class="tool-tag">Figma</span>
+                    <span class="tool-tag">Sketch</span>
+                    <span class="tool-tag">Adobe Creative Suite</span>
+                    <span class="tool-tag">Principle</span>
+                    <span class="tool-tag">Miro</span>
+                    <span class="tool-tag">InVision</span>
+                    <span class="tool-tag">Framer</span>
+                    <span class="tool-tag">Zeplin</span>
+                </div>
             </div>
         </div>
     </div>
@@ -200,7 +212,7 @@ els.form.addEventListener('submit', async (e) => {
   if (!city) return;
   try {
     await loadByCity(city, els.units.value);
-    els.input.value = ''; // Clear input after successful search
+    els.input.value = '';
   } catch (err) {
     els.status.textContent = err.message || 'Error loading city weather';
   }
@@ -226,16 +238,13 @@ els.geoBtn.addEventListener('click', () => {
     }
   }, err => {
     els.status.textContent = 'Location permission denied or unavailable.';
-    // Fallback to default city
     loadByCity('Miami', els.units.value);
   }, { enableHighAccuracy: true, timeout: 10000 });
 });
 
 els.units.addEventListener('change', () => {
-  // Re-render from cache or refetch with the chosen units
   const cache = readCache();
   if (cache?.data) {
-    // If switching units, easiest is to refetch to get server-side unit conversion
     loadByCoords(cache.lat, cache.lon, cache.label, els.units.value);
   }
 });

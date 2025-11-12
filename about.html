@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carolina's Homepage</title>
+    <title>About Me - Carolina's Website</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <nav class="top-nav">
         <div class="nav-container">
             <ul class="nav-items">
-                <li><a href="index.html" class="nav-active">Work</a></li>
+                <li><a href="index.html">Work</a></li>
                 <li><a href="profile.html">Profile</a></li>
-                <li><a href="about.html">About me</a></li>
+                <li><a href="about.html" class="nav-active">About me</a></li>
             </ul>
         </div>
     </nav>
@@ -27,7 +27,7 @@
             </form>
 
             <div class="weather-header">
-                <strong id="wx-location">Seattle</strong>
+                <strong id="wx-location">Miami</strong>
                 <label class="units-label">
                     <select id="wx-units" class="units-select">
                         <option value="fahrenheit">°F</option>
@@ -52,38 +52,40 @@
         </div>
 
         <div class="content">
-            <h1 class="intro">Hello. I'm Carolina</h1>
-            <p class="subtitle">I'm a Principal Product Designer driving innovation, and guiding teams to deliver great experiences</p>
+            <h1 class="intro">About Me</h1>
+            <p class="subtitle">Get to know the person behind the designs</p>
             
             <div class="profile-photo">
-                <!-- You can replace this src with your actual photo -->
                 <img src="your-photo.jpg" alt="Carolina Munoz" class="profile-img">
             </div>
             
-            <button class="contact-btn">About me</button>
-        </div>
-    </div>
-    
-    <!-- Projects Grid Section -->
-    <div class="projects-container">
-        <div class="projects-grid">
-            <div class="project-card">
-                <img src="Cover+Inside.jpg" alt="Project 1" class="project-image">
-            </div>
-            <div class="project-card">
-                <img src="project2.jpg" alt="Project 2" class="project-image">
-            </div>
-            <div class="project-card">
-                <img src="project3.jpg" alt="Project 3" class="project-image">
-            </div>
-            <div class="project-card">
-                <img src="project4.jpg" alt="Project 4" class="project-image">
-            </div>
-            <div class="project-card">
-                <img src="project5.jpg" alt="Project 5" class="project-image">
-            </div>
-            <div class="project-card">
-                <img src="project6.jpg" alt="Project 6" class="project-image">
+            <div class="about-content">
+                <div class="about-section">
+                    <h3>My Story</h3>
+                    <p>I'm a passionate Product Designer who believes that great design has the power to transform how people interact with technology. My journey in design started with a curiosity about how things work and evolved into a career dedicated to creating meaningful digital experiences.</p>
+                    
+                    <p>Over the years, I've had the privilege of working with diverse teams and tackling complex design challenges across various industries. I thrive on turning complex problems into simple, elegant solutions that users love.</p>
+                </div>
+                
+                <div class="about-section">
+                    <h3>Design Philosophy</h3>
+                    <p>I believe in human-centered design that puts users at the heart of every decision. My approach combines strategic thinking with creative problem-solving, always keeping accessibility and inclusivity as core principles.</p>
+                </div>
+                
+                <div class="about-section">
+                    <h3>Beyond Design</h3>
+                    <p>When I'm not designing, you can find me exploring new cities, trying different cuisines, or diving into a good book. I'm also passionate about mentoring upcoming designers and contributing to the design community through workshops and speaking engagements.</p>
+                </div>
+                
+                <div class="contact-section">
+                    <h3>Let's Connect</h3>
+                    <p>I'm always interested in connecting with fellow designers, potential collaborators, or anyone who shares a passion for great design.</p>
+                    <div class="contact-links">
+                        <a href="mailto:hello@carolina.design" class="contact-link">Email</a>
+                        <a href="https://linkedin.com/in/carolinamunoz" class="contact-link">LinkedIn</a>
+                        <a href="https://dribbble.com/carolinamunoz" class="contact-link">Dribbble</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -200,7 +202,7 @@ els.form.addEventListener('submit', async (e) => {
   if (!city) return;
   try {
     await loadByCity(city, els.units.value);
-    els.input.value = ''; // Clear input after successful search
+    els.input.value = '';
   } catch (err) {
     els.status.textContent = err.message || 'Error loading city weather';
   }
@@ -226,16 +228,13 @@ els.geoBtn.addEventListener('click', () => {
     }
   }, err => {
     els.status.textContent = 'Location permission denied or unavailable.';
-    // Fallback to default city
     loadByCity('Miami', els.units.value);
   }, { enableHighAccuracy: true, timeout: 10000 });
 });
 
 els.units.addEventListener('change', () => {
-  // Re-render from cache or refetch with the chosen units
   const cache = readCache();
   if (cache?.data) {
-    // If switching units, easiest is to refetch to get server-side unit conversion
     loadByCoords(cache.lat, cache.lon, cache.label, els.units.value);
   }
 });
