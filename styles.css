@@ -497,6 +497,14 @@ body {
     display: block;
 }
 
+/* Adjust cropping for second project to show top text */
+.project-card:nth-child(2) .project-image {
+    object-position: center 20%;
+    object-fit: cover;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
 .project-info {
     padding: 24px;
     text-align: center;
