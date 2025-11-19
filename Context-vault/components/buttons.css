@@ -1,0 +1,458 @@
+/**
+ * Material Design 3 - Button Components
+ * Complete button system with all variants and states
+ */
+
+/* ===== BUTTON BASE STYLES ===== */
+.md-button {
+  /* Base button properties */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  height: 40px;
+  padding: 0 var(--md-sys-spacing-button-padding-horizontal);
+  border: none;
+  border-radius: var(--md-sys-shape-button);
+  font-family: var(--md-sys-typescale-label-large-font-family);
+  font-size: var(--md-sys-typescale-label-large-font-size);
+  font-weight: var(--md-sys-typescale-label-large-font-weight);
+  line-height: var(--md-sys-typescale-label-large-line-height);
+  letter-spacing: var(--md-sys-typescale-label-large-letter-spacing);
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  white-space: nowrap;
+  transition: all var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+  position: relative;
+  overflow: hidden;
+  
+  /* Ensure minimum touch target */
+  min-height: var(--md-sys-touch-target-min);
+}
+
+.md-button:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}
+
+.md-button:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ===== FILLED BUTTON (Primary) ===== */
+.md-button--filled {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  box-shadow: var(--md-sys-elevation-button);
+}
+
+.md-button--filled:hover {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 92%, transparent);
+  box-shadow: var(--md-sys-elevation-button-elevated);
+}
+
+.md-button--filled:focus {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 88%, transparent);
+}
+
+.md-button--filled:active {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 88%, transparent);
+}
+
+.md-button--filled:disabled {
+  background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+}
+
+/* ===== FILLED TONAL BUTTON (Secondary) ===== */
+.md-button--filled-tonal {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  box-shadow: var(--md-sys-elevation-button);
+}
+
+.md-button--filled-tonal:hover {
+  background-color: color-mix(in srgb, var(--md-sys-color-secondary-container) 92%, transparent);
+  box-shadow: var(--md-sys-elevation-button-elevated);
+}
+
+.md-button--filled-tonal:focus {
+  background-color: color-mix(in srgb, var(--md-sys-color-secondary-container) 88%, transparent);
+}
+
+.md-button--filled-tonal:active {
+  background-color: color-mix(in srgb, var(--md-sys-color-secondary-container) 88%, transparent);
+}
+
+.md-button--filled-tonal:disabled {
+  background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+}
+
+/* ===== ELEVATED BUTTON ===== */
+.md-button--elevated {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-primary);
+  box-shadow: var(--md-sys-elevation-button-elevated);
+}
+
+.md-button--elevated:hover {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 8%, var(--md-sys-color-surface));
+  box-shadow: var(--md-sys-elevation-level2);
+}
+
+.md-button--elevated:focus {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 12%, var(--md-sys-color-surface));
+}
+
+.md-button--elevated:active {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 12%, var(--md-sys-color-surface));
+}
+
+.md-button--elevated:disabled {
+  background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+  box-shadow: var(--md-sys-elevation-level0);
+}
+
+/* ===== OUTLINED BUTTON ===== */
+.md-button--outlined {
+  background-color: transparent;
+  color: var(--md-sys-color-primary);
+  border: 1px solid var(--md-sys-color-outline);
+}
+
+.md-button--outlined:hover {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 8%, transparent);
+}
+
+.md-button--outlined:focus {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
+  border-color: var(--md-sys-color-primary);
+}
+
+.md-button--outlined:active {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
+}
+
+.md-button--outlined:disabled {
+  border-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+}
+
+/* ===== TEXT BUTTON ===== */
+.md-button--text {
+  background-color: transparent;
+  color: var(--md-sys-color-primary);
+  padding: 0 var(--md-sys-spacing-md);
+}
+
+.md-button--text:hover {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 8%, transparent);
+}
+
+.md-button--text:focus {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
+}
+
+.md-button--text:active {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
+}
+
+.md-button--text:disabled {
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+}
+
+/* ===== BUTTON WITH ICON ===== */
+.md-button--icon {
+  gap: var(--md-sys-spacing-button-icon-gap);
+}
+
+.md-button__icon {
+  width: var(--md-sys-icon-size-medium);
+  height: var(--md-sys-icon-size-medium);
+  flex-shrink: 0;
+}
+
+.md-button__icon--leading {
+  margin-left: calc(var(--md-sys-spacing-button-icon-gap) * -0.5);
+}
+
+.md-button__icon--trailing {
+  margin-right: calc(var(--md-sys-spacing-button-icon-gap) * -0.5);
+}
+
+/* ===== BUTTON SIZES ===== */
+.md-button--small {
+  height: 32px;
+  padding: 0 var(--md-sys-spacing-md);
+  font-size: var(--md-sys-typescale-label-small-font-size);
+}
+
+.md-button--large {
+  height: 48px;
+  padding: 0 var(--md-sys-spacing-2xl);
+  font-size: var(--md-sys-typescale-label-large-font-size);
+}
+
+/* ===== BUTTON SHAPES ===== */
+.md-button--rounded {
+  border-radius: var(--md-sys-shape-corner-full);
+}
+
+.md-button--sharp {
+  border-radius: var(--md-sys-shape-corner-none);
+}
+
+/* ===== ICON BUTTON ===== */
+.md-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--md-sys-touch-target-min);
+  height: var(--md-sys-touch-target-min);
+  padding: 0;
+  border: none;
+  border-radius: var(--md-sys-shape-corner-full);
+  background-color: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  transition: all var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-standard);
+  position: relative;
+  overflow: hidden;
+}
+
+.md-icon-button:hover {
+  background-color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) 8%, transparent);
+}
+
+.md-icon-button:focus {
+  background-color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) 12%, transparent);
+}
+
+.md-icon-button:focus-visible {
+  outline: 2px solid var(--md-sys-color-on-surface-variant);
+  outline-offset: 2px;
+}
+
+.md-icon-button:active {
+  background-color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) 12%, transparent);
+}
+
+.md-icon-button:disabled {
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.md-icon-button__icon {
+  width: var(--md-sys-icon-size-medium);
+  height: var(--md-sys-icon-size-medium);
+}
+
+/* Icon button variants */
+.md-icon-button--filled {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+
+.md-icon-button--filled:hover {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 92%, transparent);
+}
+
+.md-icon-button--filled-tonal {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.md-icon-button--filled-tonal:hover {
+  background-color: color-mix(in srgb, var(--md-sys-color-secondary-container) 92%, transparent);
+}
+
+.md-icon-button--outlined {
+  border: 1px solid var(--md-sys-color-outline);
+}
+
+.md-icon-button--outlined:hover {
+  background-color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) 8%, transparent);
+}
+
+/* ===== FLOATING ACTION BUTTON (FAB) ===== */
+.md-fab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: var(--md-sys-shape-fab);
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  box-shadow: var(--md-sys-elevation-fab);
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  transition: all var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-standard);
+  position: relative;
+  overflow: hidden;
+}
+
+.md-fab:hover {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary-container) 92%, transparent);
+  box-shadow: var(--md-sys-elevation-level4);
+}
+
+.md-fab:focus {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary-container) 88%, transparent);
+}
+
+.md-fab:focus-visible {
+  outline: 2px solid var(--md-sys-color-on-primary-container);
+  outline-offset: 2px;
+}
+
+.md-fab:active {
+  background-color: color-mix(in srgb, var(--md-sys-color-primary-container) 88%, transparent);
+}
+
+.md-fab:disabled {
+  background-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+  color: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+  box-shadow: var(--md-sys-elevation-level0);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.md-fab__icon {
+  width: var(--md-sys-icon-size-medium);
+  height: var(--md-sys-icon-size-medium);
+}
+
+/* FAB sizes */
+.md-fab--small {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--md-sys-shape-fab-small);
+}
+
+.md-fab--large {
+  width: 96px;
+  height: 96px;
+}
+
+.md-fab--large .md-fab__icon {
+  width: var(--md-sys-icon-size-large);
+  height: var(--md-sys-icon-size-large);
+}
+
+/* Extended FAB */
+.md-fab--extended {
+  width: auto;
+  min-width: 80px;
+  padding: 0 var(--md-sys-spacing-lg);
+  gap: var(--md-sys-spacing-md);
+  font-family: var(--md-sys-typescale-label-large-font-family);
+  font-size: var(--md-sys-typescale-label-large-font-size);
+  font-weight: var(--md-sys-typescale-label-large-font-weight);
+}
+
+/* FAB colors */
+.md-fab--surface {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-primary);
+}
+
+.md-fab--secondary {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.md-fab--tertiary {
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+/* ===== RIPPLE EFFECT ===== */
+.md-button,
+.md-icon-button,
+.md-fab {
+  overflow: hidden;
+}
+
+.md-button::before,
+.md-icon-button::before,
+.md-fab::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background-color: currentColor;
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: width var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+              height var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+              opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+}
+
+.md-button:active::before,
+.md-icon-button:active::before,
+.md-fab:active::before {
+  width: 300%;
+  height: 300%;
+  opacity: 0.1;
+}
+
+/* ===== RESPONSIVE BUTTON STYLES ===== */
+@media (max-width: 600px) {
+  .md-button {
+    min-height: var(--md-sys-touch-target-min);
+    padding: 0 var(--md-sys-spacing-lg);
+  }
+  
+  .md-fab {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .md-fab--large {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* ===== HIGH CONTRAST SUPPORT ===== */
+@media (prefers-contrast: high) {
+  .md-button--outlined,
+  .md-icon-button--outlined {
+    border-width: 2px;
+  }
+  
+  .md-button:focus-visible,
+  .md-icon-button:focus-visible,
+  .md-fab:focus-visible {
+    outline-width: 3px;
+  }
+}
+
+/* ===== REDUCED MOTION SUPPORT ===== */
+@media (prefers-reduced-motion: reduce) {
+  .md-button,
+  .md-icon-button,
+  .md-fab {
+    transition: none;
+  }
+  
+  .md-button::before,
+  .md-icon-button::before,
+  .md-fab::before {
+    display: none;
+  }
+}

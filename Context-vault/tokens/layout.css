@@ -1,0 +1,232 @@
+/**
+ * Material Design 3 - Layout Tokens
+ * Spacing, elevation, shape, and layout system tokens
+ * Based on 8dp baseline grid system
+ */
+
+/* ===== SPACING TOKENS ===== */
+:root {
+  /* Base spacing unit - 8dp grid */
+  --md-sys-spacing-base: 0.5rem; /* 8px */
+  
+  /* Spacing scale */
+  --md-sys-spacing-none: 0;
+  --md-sys-spacing-xs: calc(var(--md-sys-spacing-base) * 0.25); /* 2px */
+  --md-sys-spacing-sm: calc(var(--md-sys-spacing-base) * 0.5); /* 4px */
+  --md-sys-spacing-md: var(--md-sys-spacing-base); /* 8px */
+  --md-sys-spacing-lg: calc(var(--md-sys-spacing-base) * 2); /* 16px */
+  --md-sys-spacing-xl: calc(var(--md-sys-spacing-base) * 3); /* 24px */
+  --md-sys-spacing-2xl: calc(var(--md-sys-spacing-base) * 4); /* 32px */
+  --md-sys-spacing-3xl: calc(var(--md-sys-spacing-base) * 5); /* 40px */
+  --md-sys-spacing-4xl: calc(var(--md-sys-spacing-base) * 6); /* 48px */
+  --md-sys-spacing-5xl: calc(var(--md-sys-spacing-base) * 8); /* 64px */
+  
+  /* Component-specific spacing */
+  --md-sys-spacing-button-padding-horizontal: var(--md-sys-spacing-xl);
+  --md-sys-spacing-button-padding-vertical: var(--md-sys-spacing-md);
+  --md-sys-spacing-button-icon-gap: var(--md-sys-spacing-md);
+  
+  --md-sys-spacing-card-padding: var(--md-sys-spacing-lg);
+  --md-sys-spacing-card-margin: var(--md-sys-spacing-md);
+  
+  --md-sys-spacing-list-item-padding-vertical: var(--md-sys-spacing-lg);
+  --md-sys-spacing-list-item-padding-horizontal: var(--md-sys-spacing-lg);
+  
+  --md-sys-spacing-input-padding: var(--md-sys-spacing-lg);
+  --md-sys-spacing-input-margin-bottom: var(--md-sys-spacing-md);
+}
+
+/* ===== LAYOUT MARGINS ===== */
+:root {
+  /* Responsive margins based on breakpoints */
+  --md-sys-layout-margin-compact: var(--md-sys-spacing-lg); /* 16px mobile */
+  --md-sys-layout-margin-medium: var(--md-sys-spacing-xl); /* 24px tablet */
+  --md-sys-layout-margin-expanded: var(--md-sys-spacing-2xl); /* 32px desktop */
+  
+  /* Content max widths */
+  --md-sys-layout-content-max-width: 75rem; /* 1200px */
+  --md-sys-layout-content-narrow-max-width: 50rem; /* 800px */
+  --md-sys-layout-content-wide-max-width: 90rem; /* 1440px */
+}
+
+/* ===== ELEVATION TOKENS ===== */
+:root {
+  /* Elevation levels 0-5 */
+  --md-sys-elevation-level0: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  --md-sys-elevation-level1: 
+    0px 1px 2px 0px rgba(0, 0, 0, 0.3),
+    0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-level2: 
+    0px 1px 2px 0px rgba(0, 0, 0, 0.3),
+    0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-level3: 
+    0px 4px 8px 3px rgba(0, 0, 0, 0.15),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-level4: 
+    0px 6px 10px 4px rgba(0, 0, 0, 0.15),
+    0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-level5: 
+    0px 8px 12px 6px rgba(0, 0, 0, 0.15),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.3);
+    
+  /* Component elevation mapping */
+  --md-sys-elevation-surface: var(--md-sys-elevation-level0);
+  --md-sys-elevation-card: var(--md-sys-elevation-level1);
+  --md-sys-elevation-button: var(--md-sys-elevation-level0);
+  --md-sys-elevation-button-elevated: var(--md-sys-elevation-level1);
+  --md-sys-elevation-fab: var(--md-sys-elevation-level3);
+  --md-sys-elevation-nav-bar: var(--md-sys-elevation-level2);
+  --md-sys-elevation-nav-rail: var(--md-sys-elevation-level0);
+  --md-sys-elevation-nav-drawer: var(--md-sys-elevation-level1);
+  --md-sys-elevation-dialog: var(--md-sys-elevation-level3);
+  --md-sys-elevation-bottom-sheet: var(--md-sys-elevation-level1);
+  --md-sys-elevation-menu: var(--md-sys-elevation-level2);
+  --md-sys-elevation-tooltip: var(--md-sys-elevation-level2);
+  --md-sys-elevation-snackbar: var(--md-sys-elevation-level3);
+}
+
+/* Dark theme elevation - use tonal surface colors instead of shadows */
+[data-theme="dark"] {
+  --md-sys-elevation-level1: var(--md-sys-elevation-level0);
+  --md-sys-elevation-level2: var(--md-sys-elevation-level0);
+  --md-sys-elevation-level3: var(--md-sys-elevation-level0);
+  --md-sys-elevation-level4: var(--md-sys-elevation-level0);
+  --md-sys-elevation-level5: var(--md-sys-elevation-level0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --md-sys-elevation-level1: var(--md-sys-elevation-level0);
+    --md-sys-elevation-level2: var(--md-sys-elevation-level0);
+    --md-sys-elevation-level3: var(--md-sys-elevation-level0);
+    --md-sys-elevation-level4: var(--md-sys-elevation-level0);
+    --md-sys-elevation-level5: var(--md-sys-elevation-level0);
+  }
+}
+
+/* ===== SHAPE TOKENS ===== */
+:root {
+  /* Corner radius scale */
+  --md-sys-shape-corner-none: 0px;
+  --md-sys-shape-corner-extra-small: 4px;
+  --md-sys-shape-corner-small: 8px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-extra-large: 28px;
+  --md-sys-shape-corner-full: 50%;
+  
+  /* Component corner mapping */
+  --md-sys-shape-button: var(--md-sys-shape-corner-small);
+  --md-sys-shape-card: var(--md-sys-shape-corner-medium);
+  --md-sys-shape-chip: var(--md-sys-shape-corner-small);
+  --md-sys-shape-dialog: var(--md-sys-shape-corner-extra-large);
+  --md-sys-shape-fab: var(--md-sys-shape-corner-large);
+  --md-sys-shape-fab-small: var(--md-sys-shape-corner-medium);
+  --md-sys-shape-text-field: var(--md-sys-shape-corner-small);
+  --md-sys-shape-text-field-filled: var(--md-sys-shape-corner-small);
+  --md-sys-shape-navigation-drawer: var(--md-sys-shape-corner-large);
+  --md-sys-shape-bottom-sheet: var(--md-sys-shape-corner-extra-large);
+  --md-sys-shape-menu: var(--md-sys-shape-corner-small);
+  --md-sys-shape-tooltip: var(--md-sys-shape-corner-extra-small);
+  --md-sys-shape-snackbar: var(--md-sys-shape-corner-small);
+  --md-sys-shape-avatar: var(--md-sys-shape-corner-full);
+}
+
+/* ===== BREAKPOINT TOKENS ===== */
+:root {
+  /* Material Design 3 breakpoints */
+  --md-sys-breakpoint-compact-max: 599px;
+  --md-sys-breakpoint-medium-min: 600px;
+  --md-sys-breakpoint-medium-max: 839px;
+  --md-sys-breakpoint-expanded-min: 840px;
+  --md-sys-breakpoint-large-min: 1240px;
+  --md-sys-breakpoint-extra-large-min: 1440px;
+}
+
+/* ===== TOUCH TARGET TOKENS ===== */
+:root {
+  /* Minimum touch target sizes for accessibility */
+  --md-sys-touch-target-min: 48px;
+  --md-sys-touch-target-dense: 40px;
+  --md-sys-touch-target-large: 56px;
+}
+
+/* ===== ICON TOKENS ===== */
+:root {
+  /* Icon sizes */
+  --md-sys-icon-size-small: 16px;
+  --md-sys-icon-size-medium: 24px;
+  --md-sys-icon-size-large: 32px;
+  --md-sys-icon-size-extra-large: 48px;
+}
+
+/* ===== Z-INDEX TOKENS ===== */
+:root {
+  /* Layering system */
+  --md-sys-z-index-base: 1;
+  --md-sys-z-index-elevated: 10;
+  --md-sys-z-index-sticky: 100;
+  --md-sys-z-index-navigation: 1000;
+  --md-sys-z-index-drawer: 1100;
+  --md-sys-z-index-modal: 1200;
+  --md-sys-z-index-dialog: 1300;
+  --md-sys-z-index-tooltip: 1400;
+  --md-sys-z-index-snackbar: 1500;
+}
+
+/* ===== RESPONSIVE LAYOUT TOKENS ===== */
+@media (max-width: 599px) {
+  :root {
+    --md-sys-layout-margin: var(--md-sys-layout-margin-compact);
+    --md-sys-layout-columns: 4;
+    --md-sys-layout-gutter: var(--md-sys-spacing-lg);
+  }
+}
+
+@media (min-width: 600px) and (max-width: 839px) {
+  :root {
+    --md-sys-layout-margin: var(--md-sys-layout-margin-medium);
+    --md-sys-layout-columns: 8;
+    --md-sys-layout-gutter: var(--md-sys-spacing-xl);
+  }
+}
+
+@media (min-width: 840px) {
+  :root {
+    --md-sys-layout-margin: var(--md-sys-layout-margin-expanded);
+    --md-sys-layout-columns: 12;
+    --md-sys-layout-gutter: var(--md-sys-spacing-xl);
+  }
+}
+
+/* ===== MOTION TOKENS ===== */
+:root {
+  /* Duration tokens */
+  --md-sys-motion-duration-short1: 50ms;
+  --md-sys-motion-duration-short2: 100ms;
+  --md-sys-motion-duration-short3: 150ms;
+  --md-sys-motion-duration-medium1: 200ms;
+  --md-sys-motion-duration-medium2: 250ms;
+  --md-sys-motion-duration-medium3: 300ms;
+  --md-sys-motion-duration-medium4: 350ms;
+  --md-sys-motion-duration-long1: 400ms;
+  --md-sys-motion-duration-long2: 450ms;
+  --md-sys-motion-duration-long3: 500ms;
+  --md-sys-motion-duration-long4: 550ms;
+  --md-sys-motion-duration-extra-long1: 600ms;
+  --md-sys-motion-duration-extra-long2: 700ms;
+  --md-sys-motion-duration-extra-long3: 800ms;
+  --md-sys-motion-duration-extra-long4: 900ms;
+  
+  /* Easing tokens */
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --md-sys-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-sys-motion-easing-legacy: cubic-bezier(0.4, 0, 0.2, 1);
+  --md-sys-motion-easing-legacy-accelerate: cubic-bezier(0.4, 0, 1, 1);
+  --md-sys-motion-easing-legacy-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --md-sys-motion-easing-linear: cubic-bezier(0, 0, 1, 1);
+}
